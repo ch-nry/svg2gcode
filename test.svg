@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:lc="http://www.librecad.org" xmlns:xlink="http://www.w3.org/1999/xlink" width="44.61887595mm" height="256.70005235mm" viewBox="0 0 44.61887595 256.70005235">
+    <g lc:layername="decoupe1_export 18 4" lc:is_locked="false" lc:is_construction="false" fill="none" stroke="black" stroke-width="1">
+        <line x1="0" y1="256.70005235" x2="44.61887595" y2="256.69927377"/>
+        <line x1="44.61887595" y1="256.69927377" x2="22.21603024" y2="0"/>
+        <line x1="22.21603024" y1="0" x2="0" y2="0"/>
+        <line x1="0" y1="0" x2="0" y2="30"/>
+        <line x1="0" y1="30" x2="2" y2="30"/>
+        <line x1="2" y1="30" x2="2" y2="226.70005235"/>
+        <line x1="2" y1="226.70005235" x2="0" y2="226.70005235"/>
+        <line x1="0" y1="226.70005235" x2="0" y2="256.70005235"/>
+    </g>
+    <g lc:layername="decoupe2_export 15 3" lc:is_locked="false" lc:is_construction="false" fill="none" stroke="black" stroke-width="1">
+        <line x1="7.75735931" y1="255.1" x2="42.8732213" y2="255.1"/>
+        <line x1="42.8732213" y1="255.1" x2="20.74958494" y2="1.6"/>
+        <line x1="20.74958494" y1="1.6" x2="7.75735931" y2="1.6"/>
+        <line x1="7.75735931" y1="1.6" x2="5" y2="4.35735931"/>
+        <line x1="5" y1="4.35735931" x2="5" y2="252.34264069"/>
+        <line x1="5" y1="252.34264069" x2="7.75735931" y2="255.1"/>
+    </g>
+    <g lc:layername="decoupe3_export 20 1" lc:is_locked="false" lc:is_construction="false" fill="none" stroke="black" stroke-width="1">
+        <line x1="0" y1="256.70005235" x2="20" y2="256.70005235"/>
+        <line x1="30" y1="256.70005235" x2="44.61887595" y2="256.69927377"/>
+        <line x1="44.61887595" y1="256.69927377" x2="22.21603024" y2="0"/>
+        <line x1="0" y1="0" x2="0" y2="30"/>
+        <line x1="0" y1="30" x2="2" y2="30"/>
+        <line x1="2" y1="30" x2="2" y2="226.70005235"/>
+        <line x1="2" y1="226.70005235" x2="0" y2="226.70005235"/>
+        <line x1="0" y1="226.70005235" x2="0" y2="256.70005235"/>
+    </g>
+</svg>

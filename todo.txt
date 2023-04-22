@@ -1,0 +1,8 @@
+version 1.0 : initial commit
+latter : 
+﻿-proper makefile
+-conversion of the circle ad the curve (it only works with line for now)
+-including this as a plug in in librecad
+-find a way to make Z displacement inside a layer
+-add more option (Z clearance level, moving speed)
+-few optimization can be done, but it's not very relevant
