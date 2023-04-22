@@ -1,5 +1,6 @@
-﻿# svg-line_2_gcode allow to convert svg file exported by librecad (MakerCAM SVG)
-# as a Gcode file compatible with most CNC
+﻿# svg-line_2_gcode 
+allow to convert svg file exported by librecad (MakerCAM SVG)
+as a Gcode file compatible with most CNC
 	
 # compilation
 make
