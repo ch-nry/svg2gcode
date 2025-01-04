@@ -91,8 +91,8 @@ int main(int argc, char** argv) {
     printf("opening the gcode file\n");
     
     // put prolog data in the Gcode
-    fputs("G21 ; Set units to mm\n", newtextfile);
-    fputs("G90 ; Absolute positioning\n", newtextfile);
+    fputs("G21 (; Set units to mm)\n", newtextfile);
+    fputs("G90 (; Absolute positioning)\n", newtextfile);
     fputs("\n", newtextfile);
     
     oldline = 0;
@@ -157,13 +157,13 @@ int main(int argc, char** argv) {
   	        oldline = 0;
   	        nb_pass = min(nb_pass, max_pass_per_layer); // TODO : remove this limitation with a memaloc for stringtextfile
             //printf("find layer\n");
-            fputs("; layer ", newtextfile);
+            fputs("(; layer ", newtextfile);
             i=11; // go to the begginig of the layer name
             while( (temp[i] != ' ') && (temp[i] != '"') ) { // copy the layer name as a comment in the Gcode
                 fputc(temp[i], newtextfile);
                 i++;
             }
-            fprintf(newtextfile, ", pass : %d, Z : %f\n", nb_pass, profondeur);
+            fprintf(newtextfile, ", pass : %d  Z : %f)\n", nb_pass, profondeur);
         }
         temp = strstr(line, "line");
         if (temp) { // we get a new line
@@ -181,11 +181,11 @@ int main(int argc, char** argv) {
                    	    strcat(stringtextfile[i], temp);     
                    	    //sprintf(stringtextfile[i], "G1 X%F Y%F\n", x2, y2 );
                     } else {
-	                    sprintf(temp, "G1 Z%i F%i ; Move to clearance level\n", clearance, move_speed); // create a command
+	                    sprintf(temp, "G1 Z%i F%i (; go up)\n", clearance, move_speed); // create a command
 	                    strcat(stringtextfile[i], temp); // write this command in memory for pass n°i
 	                    sprintf(temp, "G1 X%F Y%F\n", x1, y1 );
 	                    strcat(stringtextfile[i], temp);
-	                    sprintf(temp, "G1 Z-%f F%i ; go down\n", (i+1)*profondeur/nb_pass, cut_speed);            
+	                    sprintf(temp, "G1 Z-%f F%i (; go down)\n", (i+1)*profondeur/nb_pass, cut_speed);            
 	                    strcat(stringtextfile[i], temp);
 	                    sprintf(temp, "G1 X%F Y%F\n", x2, y2 );              
 	                    strcat(stringtextfile[i], temp);
@@ -200,7 +200,7 @@ int main(int argc, char** argv) {
         temp = strstr(line, "</g>");
         if (temp) { // we test for the end of a layer
             for(i=0; i<nb_pass; i++) { // copy all pass one after the other
-                fprintf(newtextfile, "; pass N° : %i/%i, Z = %f\n", i+1, nb_pass, (i+1)*profondeur/nb_pass); // add a new pass comment in the gcode file
+                fprintf(newtextfile, "(; pass number : %i/%i, Z = %f)\n", i+1, nb_pass, (i+1)*profondeur/nb_pass); // add a new pass comment in the gcode file
                 fputs(stringtextfile[i], newtextfile); // copy pass N° i
                 stringtextfile[i][0] = '\0';   // clear the string
                 fputs("\n", newtextfile);
@@ -209,8 +209,8 @@ int main(int argc, char** argv) {
     }
 
     // end of the file
-    fprintf(newtextfile, "G1 Z%i F%i ; Move to clearance level\n", clearance, move_speed);
-    fprintf(newtextfile, "G1 X0 Y0 ; go back to the origin\n");
+    fprintf(newtextfile, "G1 Z%i F%i (; go up)\n", clearance, move_speed);
+    fprintf(newtextfile, "G1 X0 Y0 (; go back to the origin)\n");
     	                
     fclose(textfile);
 	fclose(newtextfile);
