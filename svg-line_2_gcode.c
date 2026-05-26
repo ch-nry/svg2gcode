@@ -29,6 +29,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #define move_speed 5000
 #define cut_speed 1000
@@ -52,6 +53,7 @@ int main(int argc, char** argv) {
 	int     i, nb_layer, nb_pass, nb_pass_max;
 	int     oldline; // si on as une ligne en cour
 	float   x1, x2, y1 ,y2, x2old, y2old, ymax, profondeur;
+	float   cx, cy, r; // pour les cercles
 	
 	for (i=0; i<max_pass_per_layer; i++) {
 	    stringtextfile[i][0] = '\0';   // clear the string
@@ -118,6 +120,16 @@ int main(int argc, char** argv) {
             else {
 		        printf("can not read line the line data\n");
 		        return 0;
+            }
+        }
+        temp = strstr(line, "circle");
+        if (temp) { // we have a 'circle'
+            if(sscanf(line, "%*s cx=\"%f%*s cy=\"%f%*s r=\"%f", &cx, &cy, &r) == 3) {
+                ymax = max(cy + r, ymax);
+            }
+            else {
+                printf("can not read circle data\n");
+                return 0;
             }
         }
         temp = strstr(line, "layername="); 
@@ -195,6 +207,28 @@ int main(int argc, char** argv) {
                 x2old = x2; // to test if we can continue this line
                 y2old = y2;
 	        }               
+        }
+
+        temp = strstr(line, "circle");
+        if (temp) { // we get a circle
+            if(sscanf(line, "%*s cx=\"%f%*s cy=\"%f%*s r=\"%f", &cx, &cy, &r) != 3) {
+                printf("error reading a circle data\n");
+                return 0;
+            } else {
+                cy = ymax - cy; // Y axes mirror
+                // start point = rightmost point of circle (cx+r, cy)
+                for(i=0; i<nb_pass; i++) {
+                    sprintf(temp, "G1 Z%i F%i (; go up)\n", clearance, move_speed);
+                    strcat(stringtextfile[i], temp);
+                    sprintf(temp, "G1 X%F Y%F\n", cx + r, cy);   // move to start of circle
+                    strcat(stringtextfile[i], temp);
+                    sprintf(temp, "G1 Z-%f F%i (; go down)\n", (i+1)*profondeur/nb_pass, cut_speed);
+                    strcat(stringtextfile[i], temp);
+                    sprintf(temp, "G3 X%F Y%F I%F J%F F%i (; circle)\n", cx + r, cy, -r, 0.0f, cut_speed); // full circle CW
+                    strcat(stringtextfile[i], temp);
+                }
+                oldline = 0; // can't chain from a circle
+            }
         }
         
         temp = strstr(line, "</g>");
